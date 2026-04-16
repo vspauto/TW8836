@@ -5,7 +5,7 @@ Legacy embedded firmware for the Intersil/Techwell `TW8836` video processor fami
 The checked-in configuration is centered on a `TW8836` build with an `800x480` TCON panel path, analog and digital video inputs, SPI-based OSD assets, touch and keypad input, and flash-backed EEPROM emulation. The codebase also includes a UART monitor/debug shell, BT.656 routing support, and HDMI bridge integration using the `EP907M`.
 
 > [!NOTE]
-> This repository appears to be a preserved/imported firmware tree rather than a fully reconstructed buildable project. It includes historical release notes and source files, but it does not currently include a checked-in Keil project/workspace file or a fully reproducible build setup.
+> This repository is a preserved/imported firmware tree. It includes historical release notes and source files.
 
 ## What This Repository Contains
 
@@ -48,7 +48,7 @@ This tree is organized as a monolithic embedded firmware project with most sourc
 
 ## Configuration Snapshot
 
-The currently active configuration in `config.h` indicates the following baseline setup:
+The currently active configuration in `config.h`contains the following baseline setup:
 
 - Target model: `MODEL_TW8836`
 - CPU/toolchain context: `DP80390`, 8051-family MCU, Keil C style codebase
@@ -67,11 +67,11 @@ The currently active configuration in `config.h` indicates the following baselin
   - `SUPPORT_HDMI`
 - Active HDMI bridge variant: `SUPPORT_HDMI_EP907M`
 
-This README documents the checked-in active configuration, not every historical compile-time option left in comments or alternate branches of `config.h`.
+This documents the checked-in active configuration, not every historical compile-time option left in comments or alternate branches of `config.h`.
 
 ## Build And Toolchain Notes
 
-This repository appears intended for classic Keil C51-style embedded development rather than a modern standalone build system.
+This repository is intended for classic Keil C51-style embedded development rather than a modern standalone build system.
 
 Evidence in the tree includes:
 
@@ -134,27 +134,11 @@ Based on the checked-in modules and active configuration, this firmware tree inc
 
 ## Known Gaps And Caveats
 
-- No build project/workspace file is checked in, so the original IDE setup is incomplete.
+- No build project/workspace file is checked in, so the original IDE setup is intentionally not in a complete state.
 - Hardware dependencies are external to the repo. Building and running this firmware still depends on the original board design, panel, flash layout, and connected peripherals.
-- Some files appear archival or experimental rather than clean production modules, especially `junk.c`.
+- Some files are archival or experimental rather than clean production modules, especially `junk.c`.
 - `Release.txt` indicates this tree was copied from another source and preserves historical bugs, TODO items, and release notes.
 - Some includes reference assets or headers that are not present as standalone files in the current repository, suggesting parts of the original environment may be missing. Examples include `SpeedoMeter.h`, `Clock.h`, `SlideMenu.h`, `GridLine.h`, `Compass.h`, `OSD_Image\\Harry_NoRLE_Header.c`, and `\\data\\WideModeData.txt`.
-- This README does not claim that the code has been rebuilt, flashed, or validated on hardware from the current repository state.
-
-## Getting Started For Maintainers
-
-If you are approaching this codebase for restoration or documentation work, start with these files:
-
-1. `Release.txt` for provenance and historical notes
-2. `config.h` for the active build-time feature selection
-3. `main.c` for boot flow and runtime structure
-4. `InputCtrl.c` for source switching and pipeline entry points
-5. `Scaler.c` for output scaling behavior
-6. `monitor.c` for the debug shell and maintenance surface area
-7. `SOsdMenu.c` for the SPI OSD UI path
-8. `SPI.c` for flash access, EEPROM emulation, and SPI OSD transfer helpers
-
-For build restoration, the most practical next step is to recreate a Keil project and capture the exact target, memory model, banking, include-path, and linker settings needed by this source tree.
 
 ## Licensing And Provenance
 
